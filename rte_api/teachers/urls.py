@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import TeacherViewSet, UploadTeacherExcelView
+from teachers.views import TeacherViewSet, UploadTeacherExcelView
 
 router = DefaultRouter()
 router.register(r'teachers', TeacherViewSet)
