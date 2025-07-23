@@ -20,13 +20,13 @@ class UploadExcelView(APIView):
         
         try:
             # Yesh le chai read garxa file lai
-            all_sheets = pd.read_excel(excel_file)
+            all_sheets = pd.read_excel(excel_file,sheet_name=None)
             
             # Yesh ma temporary storage hunxa
             teachers = []
             
             # sheet_name le pachi year lai extract garxa and df le data lai read garxa
-            for df in all_sheets.items():
+            for sheet_name,df in all_sheets.items():
                 
                 # Column name ko basis read garxa 
                 required_columns = {'teacher_id', 'teacher_name', 'email'}
@@ -43,7 +43,15 @@ class UploadExcelView(APIView):
                     teachers.append(teacher)
 
             Teacher.objects.bulk_create(teachers)
-            return Response({"message": f"{len(teachers)} students uploaded from {len(all_sheets)} sheets."}, status=201)
+            return Response({"message": f"{len(teachers)} teachers uploaded from {len(all_sheets)} sheets."}, status=201)
 
         except Exception as e:
             return Response({"error": str(e)}, status=500)
+        
+        
+class TeacherInfo(APIView):
+    
+    def get(self):
+        
+        teachers = Teacher.objects.values('teacher_name','email')
+        return Response(teachers)    

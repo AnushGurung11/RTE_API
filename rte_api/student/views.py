@@ -62,7 +62,7 @@ class StudentInfo(APIView):
     This call is related to student info gathering
     """
     
-    def get(self,request):
+    def get(self):
         """
         This function will get the student info
         """
