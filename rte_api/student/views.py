@@ -55,3 +55,20 @@ class UploadExcelView(APIView):
 
         except Exception as e:
             return Response({"error": str(e)}, status=500)
+        
+
+class StudentInfo(APIView):
+    """
+    This call is related to student info gathering
+    """
+    
+    def get(self,request):
+        """
+        This function will get the student info
+        """
+        
+        students = Student.objects.values('lmu_id','student_name','section')
+        return Response(students)
+        
+        
+    
