@@ -13,7 +13,7 @@ class Room(models.Model):
 
 class Seat(models.Model):
     room = models.ForeignKey(Room,related_name='seats', on_delete=models.CASCADE)  #Here this will create a another table for seats and FK the Room 
-    seat_id = models.CharField(unique=True)
+    seat_id = models.CharField(primary_key=True,unique=True)
     row = models.IntegerField()
     column = models.IntegerField()
     
